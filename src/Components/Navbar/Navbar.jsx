@@ -2,6 +2,7 @@ import "./Navbar.css"
 import logo from "../Assets/logo.png"
 import cart_icon from "../Assets/cart_icon.png"
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Navbar(){
 
@@ -15,14 +16,14 @@ function Navbar(){
         </div>
         
         <ul className="nav-menu">
-            <li onClick={()=>{setmenu("Shop")}}>Shop {menu=="Shop"?<hr/>:null}</li>
-            <li onClick={()=>{setmenu("Men")}}> Men{menu=="Men"?<hr/>:null}</li>
-            <li onClick={()=>{setmenu("Women")}}>Women{menu=="Women"?<hr/>:null}</li>
-            <li onClick={()=>{setmenu("Kids")}}>Kids{menu=="Kids"?<hr/>:null}</li>
+            <li onClick={()=>{setmenu("Shop")}}><Link to="/" style={{textDecoration:'none',color:'inherit'}}>Shop</Link> {menu==="Shop"?<hr/>:null}</li>
+            <li onClick={()=>{setmenu("Men")}}> <Link to="/mens"  style={{textDecoration:'none',color:'inherit'}}>Men</Link>{menu==="Men"?<hr/>:null}</li>
+            <li onClick={()=>{setmenu("Women")}}><Link to="/womens"  style={{textDecoration:'none',color:'inherit'}}>Women</Link>{menu==="Women"?<hr/>:null}</li>
+            <li onClick={()=>{setmenu("Kids")}}><Link to="/kids"  style={{textDecoration:'none',color:'inherit'}}>Kids</Link>{menu==="Kids"?<hr/>:null}</li>
         </ul>
         <div className="nav-login-cart">
-            <button>Login</button>
-            <img src={cart_icon}></img>
+            <Link to="/login"><button>Login</button></Link>
+            <Link to="/cart"><img src={cart_icon} alt=" "></img></Link>
             <div className="nav-card-count">0</div>
         </div>
 </div>
