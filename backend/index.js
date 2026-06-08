@@ -91,7 +91,7 @@ const Product=mongoose.model(" Product",{
 
 
 })
-
+//Adding new Products
 app.post('/addproduct',async (req,res)=>{
 
     let products= await Product.find({});
@@ -124,4 +124,24 @@ app.post('/addproduct',async (req,res)=>{
             name:req.body.name
         }
     )
+})
+
+// Creating API for deletion
+
+app.post("/removeproduct",async(req,res)=>{
+   let obj= await Product.findOneAndDelete({id:req.body.id});
+    res.json({
+        success:1,
+        name:obj.name
+    }
+    )
+})
+
+
+
+//Api for getting all products
+
+app.get("/allproducts",async (req,res)=>{
+    let products=await Product.find({});
+    res.send(products);
 })
