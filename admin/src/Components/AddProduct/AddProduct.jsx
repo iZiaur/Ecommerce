@@ -3,8 +3,8 @@ import "./AddProduct.css"
 import upload_area from "../../assets/upload_area.svg"
 import { useState } from "react";
 function AddProduct(){
-    const[image,setimage]=useState(false);
-    const [productDetails,setproductDetails]=useState({
+    let[image,setimage]=useState(false);
+    let [productDetails,setproductDetails]=useState({
         name:"",
         image:"",
         category:"women",
@@ -55,6 +55,15 @@ function AddProduct(){
                 }
             })
         }
+        setproductDetails(productDetails={
+        name:"",
+        image:"",
+        category:"women",
+        new_price:"",
+        old_price:"",
+
+    })
+    setimage(false);
     }
     return(
         <div className="add-product">
