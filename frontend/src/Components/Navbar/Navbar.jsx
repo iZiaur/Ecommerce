@@ -1,4 +1,5 @@
 import "./Navbar.css"
+import "./Navbar-search.css"
 import logo from "../Assets/logo.png"
 import cart_icon from "../Assets/cart_icon.png"
 import { useEffect, useState } from "react";
@@ -54,7 +55,17 @@ function Navbar(){
             <li onClick={()=>{setmenu("Women")}}><Link to="/womens"  style={{textDecoration:'none',color:'inherit'}}>Women</Link>{menu==="Women"?<hr/>:null}</li>
             <li onClick={()=>{setmenu("Kids")}}><Link to="/kids"  style={{textDecoration:'none',color:'inherit'}}>Kids</Link>{menu==="Kids"?<hr/>:null}</li>
         </ul>
+        
         <div className="nav-login-cart">
+            <form onSubmit={(e) => {
+                e.preventDefault();
+                const query = e.target.search.value;
+                if(query) window.location.href = `/search?q=${query}`;
+            }} className="nav-search-form">
+                <input type="text" name="search" placeholder="Search products..." className="nav-search-input" />
+                <button type="submit" className="nav-search-btn">🔍</button>
+            </form>
+
             {user && <p className="nav-username">Hey {user}</p>}
             {localStorage.getItem('auth-token')
             ?<button onClick={()=>{localStorage.removeItem('auth-token');

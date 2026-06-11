@@ -8,8 +8,14 @@ function Sidebar(){
 
     return (
         <div className="sidebar">
-            <Link to='/addproduct' style={{textDecoration:"none",color:"black"}}>
+            <Link to='/' style={{textDecoration:"none",color:"black"}}>
+                <div className="sidebar-item">
+                    <img src={list_product_icon}/>
+                    <p>Dashboard</p>
+                </div>
+            </Link>
 
+            <Link to='/addproduct' style={{textDecoration:"none",color:"black"}}>
             <div className="sidebar-item">
                 <img src={add_product_icon}/>
                 <p>Add Product</p>

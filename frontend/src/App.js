@@ -13,6 +13,7 @@ import kids_banner from "./Components/Assets/banner_kids.png"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useEffect } from 'react';
+import Search from './Pages/Search';
 
 function App() {
   useEffect(() => {
@@ -49,6 +50,7 @@ function App() {
       <Route path="/mens" element={<ShopCategory banner={men_banner}category="men"/>}></Route>
       <Route path="/womens" element={<ShopCategory banner={women_banner} category="women"/>}></Route>
       <Route path="/kids" element={<ShopCategory banner={kids_banner} category="kid"/>}></Route>
+      <Route path="/search" element={<Search/>}></Route>
       <Route path="/product" element={<Product/>}>
       <Route path=":productId" element={<Product/>}></Route>
       </Route>
