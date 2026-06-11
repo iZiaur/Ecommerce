@@ -28,9 +28,9 @@ function LoginSignUp(){
 
             // Redirect
             window.location.href = "/";
-            alert(`Welcome ${formdata.username}`)
+            
         } else {
-            alert(responseData.message || "Signup failed");
+            alert(responseData.message || "Invalid Credentials");
         }
     }
     

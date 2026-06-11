@@ -226,3 +226,21 @@ app.post('/login',async (req,res)=>{
         res.json({success:false,errors:"Wrong Email Id"})
     }
 })
+
+// API For New Collection data
+
+app.get("/newcollections",async(req,res)=>{
+    let products=await Product.find({});
+    let newcollection=products.slice(1).slice(-8);
+    res.send(newcollection);
+})
+
+//api for popular category
+
+app.get("/popularinwomen",async (req,res)=>{
+    let products=await Product.find({category:"women"});
+    let popularinwomen=products.slice(0,4);
+    res.send(popularinwomen);
+
+
+})
