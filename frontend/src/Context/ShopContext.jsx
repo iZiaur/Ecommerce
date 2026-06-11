@@ -18,18 +18,9 @@ const ShopContextProvider=(props)=>{
     useEffect(()=>{
         fetch('http://localhost:4000/allproducts').then((response)=>response.json()).then((data)=>setall_product(data));
 
-        if(localStorage.getItem('auth-token')){
-            fetch('http://localhost:4000/getcart',{
-                method:"POST",
-                headers:{
-                    Accept:"application/json",
-                    'auth-token':`${localStorage.getItem('auth-token')}`,
-                    'Content-type':'application/json',
-                },
-                body:"",
-            }).then((response)=>response.json()).then((data)=>setCartItems(data));
+    
         }
-    },[])
+    ,[])
     
    const addToCart=(itemId)=>{
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))

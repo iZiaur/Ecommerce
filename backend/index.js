@@ -289,3 +289,10 @@ app.post("/getcart",fetchUser,async(req,res)=>{
      let userData=await Users.findOne({_id:req.user.id});
      res.json(userData.cartData);
 })
+
+// Get username
+
+app.post("/getuser",fetchUser,async(req,res)=>{
+    let userData=await Users.findOne({_id:req.user.id});
+    res.send(userData.name);
+})

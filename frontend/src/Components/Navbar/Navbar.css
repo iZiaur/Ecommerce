@@ -84,6 +84,32 @@ cursor:pointer;
 .nav-dropdown{
     display:none;
 }
+.nav-username{
+    display:flex;
+    align-items:center;
+
+    height:42px;
+
+    padding:0px 16px;
+
+    border-radius:30px;
+
+    
+
+    color:#626262;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    white-space:nowrap;
+
+    transition:0.3s ease;
+}
+
+.nav-username:hover{
+    background:#f3e8ff;
+}
 
 @media(max-width:1280px){
     .navbar{

@@ -1,7 +1,7 @@
 import "./Navbar.css"
 import logo from "../Assets/logo.png"
 import cart_icon from "../Assets/cart_icon.png"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ShopContext } from "../../Context/ShopContext";
@@ -13,13 +13,32 @@ function Navbar(){
 
     let[menu,setmenu]=useState("Shop");
     const {getTotalCartItems}=useContext(ShopContext);
+    const[user,setuser]=useState("");
     const menuref=useRef();
 
     const dropdown_toggle=(e)=>{
         menuref.current.classList.toggle("nav-menu-visible");
         e.target.classList.toggle("open");
     }
+    
+    useEffect(() => {
 
+    if (localStorage.getItem("auth-token")) {
+
+        fetch("http://localhost:4000/getuser", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "auth-token": localStorage.getItem("auth-token"),
+                "Content-type": "application/json",
+            }
+        })
+        .then((response) => response.text()) // ← important
+        .then((data) => setuser(data));
+
+    }
+
+}, []);
     return (
         <div className="navbar">
         <div className="nav-logo">
@@ -34,6 +53,7 @@ function Navbar(){
             <li onClick={()=>{setmenu("Kids")}}><Link to="/kids"  style={{textDecoration:'none',color:'inherit'}}>Kids</Link>{menu==="Kids"?<hr/>:null}</li>
         </ul>
         <div className="nav-login-cart">
+            {user && <p className="nav-username">Hey {user}</p>}
             {localStorage.getItem('auth-token')
             ?<button onClick={()=>{localStorage.removeItem('auth-token');
                 window.location.replace("/");
@@ -48,4 +68,5 @@ function Navbar(){
 
 
 }
+
 export default Navbar;
