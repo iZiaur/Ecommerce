@@ -18,8 +18,13 @@ function Footer(){
             <li>Offices</li>
             <li>About</li>
             <li>Contact</li>
-            <li><a href="https://admin-threadly.vercel.app/" className="footer-admin" style={{textDecoration:"none",color:"black"}} />
-                 Admin
+                        <li><a
+                                href="https://admin-threadly.vercel.app/"
+                                className="footer-admin"
+                                style={{ textDecoration: "none", color: "black" }}
+                                >
+                                    Admin
+                                </a>
             </li>
             </ul>
             <div className="footer-social-icon">
