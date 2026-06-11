@@ -23,6 +23,7 @@ function Login({setIsAuth}){
 
         if (responseData.success) {
             localStorage.setItem("auth-token", responseData.token);
+            localStorage.setItem("admin-login-time", new Date().getTime().toString());
             setIsAuth(true);
         } else {
             alert(responseData.errors || "Invalid Credentials");
