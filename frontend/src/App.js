@@ -10,11 +10,39 @@ import Footer from './Components/Footer/Footer';
 import men_banner from "./Components/Assets/banner_mens.png"
 import women_banner from './Components/Assets/banner_women.png'
 import kids_banner from "./Components/Assets/banner_kids.png"
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    const checkSession = () => {
+      const token = localStorage.getItem('auth-token');
+      const loginTime = localStorage.getItem('login-time');
+      if (token && loginTime) {
+        const now = new Date().getTime();
+        // 5 minutes = 300000 ms
+        if (now - parseInt(loginTime) > 300000) {
+          localStorage.removeItem('auth-token');
+          localStorage.removeItem('login-time');
+          toast.error('Session expired. Please log in again.');
+          setTimeout(() => {
+            window.location.replace('/login');
+          }, 2000);
+        }
+      } else if (token && !loginTime) {
+        localStorage.setItem('login-time', new Date().getTime().toString());
+      }
+    };
+    checkSession();
+    const interval = setInterval(checkSession, 10000); // Check every 10 seconds
+    return () => clearInterval(interval);
+  }, []);
+
   return <div>
     
     <BrowserRouter>
+    <ToastContainer />
     <Navbar/>
     <Routes>
       <Route path="/" element={<Shop/>}></Route>

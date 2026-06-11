@@ -5,6 +5,8 @@ import { ShopContext } from "../Context/ShopContext";
 import Item from "../Components/Item/Item.jsx"
 
 
+import { toast } from 'react-toastify';
+
 function ShopCategory(props){
     const{all_product}=useContext(ShopContext)
         return(
@@ -28,7 +30,10 @@ function ShopCategory(props){
                         }
                     })}
                 </div>
-                <div className="shopcategory-loadmore">
+                <div className="shopcategory-loadmore" onClick={() => {
+                    toast.info("You've seen all the products in this category!");
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}>
                     Explore More
                 </div>
             </div>

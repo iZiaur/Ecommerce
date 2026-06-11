@@ -1,5 +1,6 @@
 import "./css/LoginSignup.css"
 import { useState } from "react";
+import { toast } from 'react-toastify';
 
 const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
 function LoginSignUp(){
@@ -26,13 +27,14 @@ function LoginSignUp(){
 
         if (responseData.success) {
             localStorage.setItem("auth-token", responseData.token);
+            localStorage.setItem("login-time", new Date().getTime().toString());
             console.log("Response:", responseData);
 
             // Redirect
             window.location.href = "/";
             
         } else {
-            alert(responseData.message || "Invalid Credentials");
+            toast.error(responseData.message || "Invalid Credentials");
         }
     }
     
@@ -62,13 +64,14 @@ function LoginSignUp(){
 
         if (responseData.success) {
             localStorage.setItem("auth-token", responseData.token);
+            localStorage.setItem("login-time", new Date().getTime().toString());
             console.log("Response:", responseData);
 
             // Redirect
             window.location.href = "/";
-            alert(`Welcome ${formdata.username}`)
+            toast.success(`Welcome ${formdata.username}`)
         } else {
-            alert(responseData.message || "Signup failed");
+            toast.error(responseData.message || "Signup failed");
         }
     }
 

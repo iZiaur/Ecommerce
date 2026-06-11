@@ -1,11 +1,31 @@
 import "./CartItems.css";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ShopContext } from "../../Context/ShopContext";
 import remove_icon from "../Assets/cart_cross_icon.png";
 
 
+import { toast } from 'react-toastify';
+
 function CartItems(){
     const {getTotalCartAmount,all_product,cartItems,addToCart,removeFromCart} = useContext(ShopContext);
+    const [promo, setPromo] = useState('');
+
+    const handleCheckout = () => {
+        if (getTotalCartAmount() === 0) {
+            toast.error("Your cart is empty!");
+        } else {
+            toast.info("Redirecting to secure payment gateway...");
+        }
+    };
+
+    const handlePromo = () => {
+        if (!promo) {
+            toast.error("Please enter a promo code.");
+        } else {
+            toast.success("Promo code applied successfully!");
+            setPromo('');
+        }
+    };
 
     return(
         <div className="cart-items">
@@ -60,14 +80,14 @@ function CartItems(){
                                 </div>
 
                         </div>
-                        <button>PROCEED TO CHECKOUT</button>
+                        <button onClick={handleCheckout}>PROCEED TO CHECKOUT</button>
 
                     </div>
                     <div className="cart-items-promocode">
                        <p>If you have a promo code enter it here</p> 
                           <div className="cart-items-promobox">
-                            <input type="text" placeholder="promo code"/>
-                            <button>Apply</button>
+                            <input type="text" placeholder="promo code" value={promo} onChange={(e) => setPromo(e.target.value)}/>
+                            <button onClick={handlePromo}>Apply</button>
                           </div>
                     </div>
             </div>

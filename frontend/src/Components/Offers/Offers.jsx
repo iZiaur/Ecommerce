@@ -9,7 +9,9 @@ return (
             <h1>Exclusive</h1>
             <h1>Offers For You</h1>
             <p><i>Only on Best Seller Products</i></p>
-            <button>Check Now</button>
+            <button onClick={() => {
+                window.location.href = '/womens';
+            }}>Check Now</button>
 
         </div>
 
