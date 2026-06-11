@@ -1,4 +1,4 @@
-const port=4000;
+
 const express=require("express");
 const app=express();
 const mongoose=require("mongoose");
@@ -7,7 +7,8 @@ const multer=require("multer");
 const path=require("path");
 const cors=require("cors");
 app.use(express.json());
-app.use(cors());
+
+app.use(cors())
 require("dotenv").config();
 
 // Connecting with mongodb
@@ -17,15 +18,14 @@ const password = process.env.MONGO_PASSWORD;
 mongoose.connect(`mongodb+srv://${username}:${encodeURIComponent(password)}@cluster0.fjpmheu.mongodb.net/Ecommerce`);
 
 
+
 //API Creation
 
-app.listen(port,(error)=>{
-    if(!error){
-        console.log("Server running on port "+port);
-    }else{
-        console.log(error);
-    }
-})
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+    console.log("Server Running");
+});
 
 
 app.get("/",(req,res)=>{
