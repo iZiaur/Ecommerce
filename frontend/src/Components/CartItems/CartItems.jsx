@@ -11,6 +11,14 @@ function CartItems(){
     const [promo, setPromo] = useState('');
 
     const handleCheckout = () => {
+        if (!localStorage.getItem('auth-token')) {
+            toast.error("Please login first to proceed to checkout!");
+            setTimeout(() => {
+                window.location.href = "/login";
+            }, 1500);
+            return;
+        }
+        
         if (getTotalCartAmount() === 0) {
             toast.error("Your cart is empty!");
         } else {
