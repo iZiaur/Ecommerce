@@ -3,11 +3,13 @@ import "./NewCollections.css"
 import Item from "../Item/Item"
 import { useEffect, useState } from "react"
 
+const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
+
 function NewCollections(){
     let[new_collection,setnew_collection]=useState([]);
 
     useEffect(()=>{
-        fetch('http://localhost:4000/newcollections').then((response)=>response.json()).then((data)=>setnew_collection(data));
+        fetch(`${API_URL}/newcollections`).then((response)=>response.json()).then((data)=>setnew_collection(data));
     },[])
     return(
         <div className="new-collections">

@@ -8,6 +8,8 @@ import { ShopContext } from "../../Context/ShopContext";
 import dropdown from "../Assets/nav_dropdown.png"
 import { useRef } from "react";
 
+const API_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:4000';
+
 function Navbar(){
 
 
@@ -25,7 +27,7 @@ function Navbar(){
 
     if (localStorage.getItem("auth-token")) {
 
-        fetch("http://localhost:4000/getuser", {
+        fetch(`${API_URL}/getuser`, {
             method: "POST",
             headers: {
                 Accept: "application/json",
