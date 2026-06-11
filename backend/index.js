@@ -1,4 +1,3 @@
-
 const express=require("express");
 const app=express();
 const mongoose=require("mongoose");
@@ -6,6 +5,7 @@ const jwt=require("jsonwebtoken");
 const multer=require("multer");
 const path=require("path");
 const cors=require("cors");
+const bcrypt=require("bcrypt");
 const cloudinary=require("cloudinary").v2;
 app.use(express.json());
 
@@ -190,10 +190,13 @@ app.post("/signup",async (req,res)=>{
     }
 
     let cart={};
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(req.body.password, salt);
+    
     const user=new Users({
         name:req.body.username,
         email:req.body.email,
-        password:req.body.password,
+        password:hashedPassword,
         cartData:cart,
     })
 
@@ -218,7 +221,7 @@ app.post("/signup",async (req,res)=>{
 app.post('/login',async (req,res)=>{
     let user=await Users.findOne({email:req.body.email})
     if(user){
-        const passcompare=req.body.password === user.password;
+        const passcompare = await bcrypt.compare(req.body.password, user.password);
         if(passcompare){
             const data={
                 user:{
@@ -330,7 +333,8 @@ const Admin=mongoose.model("Admin",{
 app.post("/adminlogin",async(req,res)=>{
     let admin=await Admin.findOne({email:req.body.email});
     if(admin){
-        if(req.body.password===admin.password){
+        const passcompare = await bcrypt.compare(req.body.password, admin.password);
+        if(passcompare){
             const data={admin:{id:admin.id}};
             const token=jwt.sign(data,process.env.JWT_SECRET || 'secret_ecom');
             res.json({success:true,token});
