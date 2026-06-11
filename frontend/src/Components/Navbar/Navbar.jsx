@@ -56,15 +56,16 @@ function Navbar(){
             <li onClick={()=>{setmenu("Kids")}}><Link to="/kids"  style={{textDecoration:'none',color:'inherit'}}>Kids</Link>{menu==="Kids"?<hr/>:null}</li>
         </ul>
         
+        <form onSubmit={(e) => {
+            e.preventDefault();
+            const query = e.target.search.value;
+            if(query) window.location.href = `/search?q=${query}`;
+        }} className="nav-search-form">
+            <input type="text" name="search" placeholder="Search products..." className="nav-search-input" />
+            <button type="submit" className="nav-search-btn">🔍</button>
+        </form>
+
         <div className="nav-login-cart">
-            <form onSubmit={(e) => {
-                e.preventDefault();
-                const query = e.target.search.value;
-                if(query) window.location.href = `/search?q=${query}`;
-            }} className="nav-search-form">
-                <input type="text" name="search" placeholder="Search products..." className="nav-search-input" />
-                <button type="submit" className="nav-search-btn">🔍</button>
-            </form>
 
             {user && <p className="nav-username">Hey {user}</p>}
             {localStorage.getItem('auth-token')
