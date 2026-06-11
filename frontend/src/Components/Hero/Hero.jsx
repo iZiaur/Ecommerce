@@ -16,7 +16,10 @@ function Hero(){
                     <p>Collections</p>
                     <p>For Everyone</p>
                 </div>
-                <div className="hero-latest-button">
+                <div className="hero-latest-button" onClick={() => {
+                    const el = document.getElementById('new-collections');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}>
                     <div>Latest Collection</div>
                     <img src={arrow_icon} alt="" />
                 </div>

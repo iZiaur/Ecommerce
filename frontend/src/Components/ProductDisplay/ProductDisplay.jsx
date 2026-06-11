@@ -1,13 +1,14 @@
 import "./ProductDisplay.css"
 import star_icon from "../Assets/star_icon.png"
 import star_dull_icon from "../Assets/star_dull_icon.png"
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { ShopContext } from "../../Context/ShopContext";
 
 
 function ProductDisplay(props){
     const{product}=props
     const {addToCart}=useContext(ShopContext)
+    const [size, setSize] = useState('M'); // default size M
 
 return(
     <div className="productdisplay">
@@ -53,14 +54,14 @@ return(
             <div className="productdisplayrightsize">
                 <h1>Select Size</h1>
                 <div className="productdisplayrightsizes">
-                    <div>S</div>
-                    <div>M</div>
-                    <div>L</div>
-                    <div>XL</div>
-                    <div>XXL</div>
+                    <div className={size === 'S' ? 'active-size' : ''} onClick={() => setSize('S')}>S</div>
+                    <div className={size === 'M' ? 'active-size' : ''} onClick={() => setSize('M')}>M</div>
+                    <div className={size === 'L' ? 'active-size' : ''} onClick={() => setSize('L')}>L</div>
+                    <div className={size === 'XL' ? 'active-size' : ''} onClick={() => setSize('XL')}>XL</div>
+                    <div className={size === 'XXL' ? 'active-size' : ''} onClick={() => setSize('XXL')}>XXL</div>
                 </div>
             </div>
-            <button onClick={()=>addToCart(product.id)} >ADD TO CART</button>
+            <button onClick={()=>addToCart(product.id, size)} >ADD TO CART</button>
             <p className="productsdisplayrightcategory"><span>Category :</span>Women,T-Shirt,Crop Top</p>
             <p className="productsdisplayrightcategory"><span>Tags :</span>Women,T-Shirt,Crop Top</p>
 

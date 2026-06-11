@@ -190,9 +190,6 @@ app.post("/signup",async (req,res)=>{
     }
 
     let cart={};
-    for(let i=0;i<300;i++){
-        cart[i]=0;
-    }
     const user=new Users({
         name:req.body.username,
         email:req.body.email,
@@ -277,7 +274,8 @@ const fetchUser=async(req,res,next)=>{
 
 app.post("/addtocart",fetchUser,async (req,res)=>{
     let userData=await Users.findOne({_id:req.user.id});
-    userData.cartData[req.body.itemId]+=1;
+    let itemId = req.body.itemId;
+    userData.cartData[itemId] = (userData.cartData[itemId] || 0) + 1;
     await Users.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData});
     res.send("Added")
 })
@@ -286,12 +284,16 @@ app.post("/addtocart",fetchUser,async (req,res)=>{
 
 app.post("/removefromcart",fetchUser,async (req,res)=>{
     let userData=await Users.findOne({_id:req.user.id});
-    if(userData.cartData[req.body.itemId]>0){
-        userData.cartData[req.body.itemId]-=1;
+    let itemId = req.body.itemId;
+    if(userData.cartData[itemId]>0){
+        userData.cartData[itemId]-=1;
+        // Clean up 0 quantity items to save space
+        if (userData.cartData[itemId] === 0) {
+            delete userData.cartData[itemId];
+        }
         await Users.findOneAndUpdate({_id:req.user.id},{cartData:userData.cartData});
     }
-    
-    
+    res.send("Removed")
 })
 
 

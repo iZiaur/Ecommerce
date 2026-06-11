@@ -18,17 +18,22 @@ function CartItems(){
                 <p>Remove</p>
             </div>
             <hr/>
-            {all_product.map((e)=>{
-                if(cartItems[e.id] > 0){
-                    return <div>
+            {Object.keys(cartItems).map((itemKey)=>{
+                if(cartItems[itemKey] > 0){
+                    let productId = Number(itemKey.split('_')[0]);
+                    let size = itemKey.split('_')[1];
+                    let e = all_product.find((product)=>product.id===productId);
+                    if(!e) return null;
+
+                    return <div key={itemKey}>
                 <div className="cart-items-format cart-items-format-main">
                     <img  src={e.image} alt=" " className="cart-items-product-icon"/>
-                    <p>{e.name}</p>
+                    <p>{e.name} <br/> <strong>Size: {size}</strong></p>
                     <p>Rs.{e.new_price}</p>
                     
-                    <button className="carditems-quantity">{cartItems[e.id]}</button>
-                    <p>Rs.{e.new_price * cartItems[e.id]}</p>
-                    <img src={remove_icon} className="cart-items-remove-icon" onClick={() => removeFromCart(e.id)}/>
+                    <button className="carditems-quantity">{cartItems[itemKey]}</button>
+                    <p>Rs.{e.new_price * cartItems[itemKey]}</p>
+                    <img src={remove_icon} className="cart-items-remove-icon" onClick={() => removeFromCart(itemKey)}/>
                 </div>
                 <hr/>
             </div>

@@ -338,3 +338,7 @@
 
 
 }
+.active-size {
+    border: 2px solid #ff4141 !important;
+    background: #fce3fe !important;
+}

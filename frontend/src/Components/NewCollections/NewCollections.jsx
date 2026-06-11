@@ -12,7 +12,7 @@ function NewCollections(){
         fetch(`${API_URL}/newcollections`).then((response)=>response.json()).then((data)=>setnew_collection(data));
     },[])
     return(
-        <div className="new-collections">
+        <div id="new-collections" className="new-collections">
             <h1>NEW COLLECTIONS</h1>
             <hr/>
             <div className="collections">

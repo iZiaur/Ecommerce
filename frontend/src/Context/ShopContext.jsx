@@ -6,11 +6,7 @@ export const ShopContext=createContext(null);
 
 
  const getDefaultCart=()=>{
-        let cart={};
-        for(let i=1;i<=300+1;i++){
-            cart[i]=0;
-        }
-        return cart;
+        return {};
     }
 
 const ShopContextProvider=(props)=>{
@@ -34,8 +30,9 @@ const ShopContextProvider=(props)=>{
         }
     },[])
     
-   const addToCart=(itemId)=>{
-        setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
+   const addToCart=(itemId, size)=>{
+        const itemKey = `${itemId}_${size}`;
+        setCartItems((prev)=>({...prev,[itemKey]:(prev[itemKey] || 0)+1}))
         if(localStorage.getItem('auth-token')){
             fetch(`${API_URL}/addtocart`,{
                 method:"POST",
@@ -44,15 +41,18 @@ const ShopContextProvider=(props)=>{
                     'auth-token':`${localStorage.getItem('auth-token')}`,
                     'Content-type':'application/json',
                 },
-                body:JSON.stringify({"itemId":itemId})
+                body:JSON.stringify({"itemId":itemKey})
             }).then((response)=>response.json()).then((data)=>console.log(data));
         }
         
    }
-   const removeFromCart=(itemId)=>{
-        setCartItems((prev)=>({...prev,[itemId]:prev[itemId]-1}))
+   const removeFromCart=(itemKey)=>{
+        setCartItems((prev)=>{
+            const newCart = {...prev, [itemKey]:prev[itemKey]-1};
+            if(newCart[itemKey] <= 0) delete newCart[itemKey];
+            return newCart;
+        })
         if(localStorage.getItem('auth-token')){
-             if(localStorage.getItem('auth-token')){
             fetch(`${API_URL}/removefromcart`,{
                 method:"POST",
                 headers:{
@@ -60,17 +60,19 @@ const ShopContextProvider=(props)=>{
                     'auth-token':`${localStorage.getItem('auth-token')}`,
                     'Content-type':'application/json',
                 },
-                body:JSON.stringify({"itemId":itemId})
+                body:JSON.stringify({"itemId":itemKey})
             }).then((response)=>response.json()).then((data)=>console.log(data));
-        }
         }
    }
    const getTotalCartAmount=()=>{
         let totalAmount=0;
-        for(const item in cartItems){
-            if(cartItems[item]>0){
-                let itemInfo=all_product.find((product)=>product.id===Number(item));
-                totalAmount+=cartItems[item]*itemInfo.new_price;
+        for(const itemKey in cartItems){
+            if(cartItems[itemKey]>0){
+                let productId = Number(itemKey.split('_')[0]);
+                let itemInfo=all_product.find((product)=>product.id===productId);
+                if(itemInfo) {
+                    totalAmount+=cartItems[itemKey]*itemInfo.new_price;
+                }
             }
             
         }
@@ -79,15 +81,15 @@ const ShopContextProvider=(props)=>{
 
    const getTotalCartItems=()=>{
         let totalItems=0;
-        for(const item in cartItems){
-            if(cartItems[item]>0){
-                totalItems+=cartItems[item];
+        for(const itemKey in cartItems){
+            if(cartItems[itemKey]>0){
+                totalItems+=cartItems[itemKey];
             }
         }
         return totalItems;
    }
 
-   const contextValue={all_product,cartItems,addToCart,removeFromCart,getTotalCartAmount,getTotalCartItems,getTotalCartItems};
+   const contextValue={all_product,cartItems,addToCart,removeFromCart,getTotalCartAmount,getTotalCartItems};
    
     return (
         <ShopContext.Provider value={contextValue}>
