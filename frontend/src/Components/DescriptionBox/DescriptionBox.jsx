@@ -1,6 +1,9 @@
 import "./DescriptionBox.css";
 
-function DescriptionBox() {
+function DescriptionBox({ product }) {
+  const name = product ? product.name : "this item";
+  const category = product ? product.category : "clothing";
+
   return (
     <div className="description-box">
         <div className="description-box-navigator">
@@ -11,16 +14,18 @@ function DescriptionBox() {
         </div>
 
         <div className="description-box-description">
-            <p>This shirt is crafted from soft, breathable fabric that provides all-day comfort.
-                Its modern fit creates a stylish and polished appearance for any occasion.
-                The lightweight material allows easy movement while maintaining a neat look.
-                Carefully stitched details enhance both durability and elegance.
-                Perfect for work, casual outings, or special gatherings.</p>
-            <p>The versatile design pairs effortlessly with jeans, trousers, or chinos.
-                Its classic collar and refined finish add a touch of sophistication.
-                The fabric resists wrinkles, helping you stay sharp throughout the day.
-                Available in attractive colors, it complements a variety of personal styles.
-                This shirt is an excellent choice for a comfortable and fashionable wardrobe.</p>
+            <p><strong>Product Overview:</strong> Elevate your wardrobe with {name}, exclusively available at Threadly. Crafted from premium, breathable materials, this piece is designed to offer maximum all-day comfort without compromising on style. Its modern fit creates a polished appearance for any occasion, from casual outings to special gatherings.</p>
+            
+            <p><strong>Specifications & Details:</strong></p>
+            <ul>
+                <li><strong>Manufactured by:</strong> Threadly Originals</li>
+                <li><strong>Category:</strong> {category.charAt(0).toUpperCase() + category.slice(1)}'s Fashion</li>
+                <li><strong>Cloth Length / Fit:</strong> Regular tailored fit</li>
+                <li><strong>Material Care:</strong> Machine washable, cold water recommended</li>
+                <li><strong>Durability:</strong> Features reinforced, careful stitching to resist daily wear and tear</li>
+            </ul>
+            
+            <p>The versatile design pairs effortlessly with your favorite jeans, trousers, or chinos. The high-quality fabric is wrinkle-resistant, helping you stay sharp throughout the day. {name} is an excellent choice for anyone looking to build a comfortable and fashionable wardrobe.</p>
         </div>        
     </div>
   );
