@@ -35,7 +35,12 @@ const Search = () => {
                 </p>
             </div>
 
-            {results.length > 0 ? (
+            {all_product.length === 0 ? (
+                <div style={{ textAlign: 'center', marginTop: '80px', marginBottom: '100px' }}>
+                    <h2 style={{ color: '#ff4141' }}>Searching for "{query}"...</h2>
+                    <p style={{ color: '#666' }}>Fetching products from the database</p>
+                </div>
+            ) : results.length > 0 ? (
                 <div className="shopcategory-products">
                     {results.map((item, i) => (
                         <Item 
@@ -49,7 +54,7 @@ const Search = () => {
                     ))}
                 </div>
             ) : (
-                <div style={{ textAlign: 'center', marginTop: '50px', marginBottom: '100px' }}>
+                <div style={{ textAlign: 'center', marginTop: '80px', marginBottom: '100px' }}>
                     <h2>No products found matching your search.</h2>
                     <p style={{ color: '#666' }}>Try searching for a different keyword or category (e.g. 'shirt', 'men').</p>
                 </div>
