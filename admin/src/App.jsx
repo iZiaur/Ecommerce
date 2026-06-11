@@ -1,11 +1,20 @@
 import Admin from "./Pages/Admin/Admin.jsx"
 import Navbar from "./Components/Navbar/Navbar"
+import Login from "./Components/Login/Login.jsx"
 import{Routes,Route} from "react-router-dom"
+import { useState } from "react"
 
-import ListProduct from "./Components/ListProduct/ListProduct.jsx"
-import AddProduct from "./Components/AddProduct/AddProduct.jsx"
 function App() {
-  
+  const [isAuth,setIsAuth]=useState(!!localStorage.getItem("auth-token"));
+
+  if(!isAuth){
+    return (
+      <div>
+        <Navbar/>
+        <Login setIsAuth={setIsAuth}/>
+      </div>
+    )
+  }
 
   return (
     <div>
