@@ -345,3 +345,14 @@ app.post("/adminlogin",async(req,res)=>{
         res.json({success:false,errors:"Admin not found"});
     }
 })
+
+// Admin Analytics
+app.get("/admin/analytics", async (req, res) => {
+    try {
+        const totalUsers = await Users.countDocuments({});
+        const totalProducts = await Product.countDocuments({});
+        res.json({ success: true, totalUsers, totalProducts });
+    } catch (error) {
+        res.status(500).json({ success: false, errors: "Server error" });
+    }
+});
