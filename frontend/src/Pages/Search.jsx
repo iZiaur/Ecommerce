@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { ShopContext } from '../Context/ShopContext';
 import Item from '../Components/Item/Item';
-import './CSS/ShopCategory.css'; // Reusing ShopCategory styles
+import './css/ShopCategory.css'; // Reusing ShopCategory styles
 
 const Search = () => {
     const [searchParams] = useSearchParams();
