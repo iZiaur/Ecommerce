@@ -20,9 +20,19 @@ const ShopContextProvider=(props)=>{
     useEffect(()=>{
         fetch(`${API_URL}/allproducts`).then((response)=>response.json()).then((data)=>setall_product(data));
 
-    
+        // Restore saved cart if user is logged in
+        if(localStorage.getItem('auth-token')){
+            fetch(`${API_URL}/getcart`,{
+                method:"POST",
+                headers:{
+                    Accept:"application/json",
+                    'auth-token':`${localStorage.getItem('auth-token')}`,
+                    'Content-type':'application/json',
+                },
+            }).then((response)=>response.json())
+            .then((data)=>setCartItems(data));
         }
-    ,[])
+    },[])
     
    const addToCart=(itemId)=>{
         setCartItems((prev)=>({...prev,[itemId]:prev[itemId]+1}))
