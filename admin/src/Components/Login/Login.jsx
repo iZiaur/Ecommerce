@@ -10,7 +10,7 @@ function Login({setIsAuth}){
     })
 
     async function login(){
-        const response = await fetch(`${API_URL}/login`, {
+        const response = await fetch(`${API_URL}/adminlogin`, {
             method: "POST",
             headers: {
                 Accept: "application/json",

@@ -308,3 +308,34 @@ app.post("/getuser",fetchUser,async(req,res)=>{
     let userData=await Users.findOne({_id:req.user.id});
     res.send(userData.name);
 })
+
+// Admin Schema
+
+const Admin=mongoose.model("Admin",{
+    email:{
+        type:String,
+        unique:true,
+        required:true
+    },
+    password:{
+        type:String,
+        required:true
+    }
+})
+
+// Admin Login
+
+app.post("/adminlogin",async(req,res)=>{
+    let admin=await Admin.findOne({email:req.body.email});
+    if(admin){
+        if(req.body.password===admin.password){
+            const data={admin:{id:admin.id}};
+            const token=jwt.sign(data,process.env.JWT_SECRET || 'secret_ecom');
+            res.json({success:true,token});
+        }else{
+            res.json({success:false,errors:"Wrong password"});
+        }
+    }else{
+        res.json({success:false,errors:"Admin not found"});
+    }
+})
