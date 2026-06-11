@@ -46,10 +46,26 @@ return(
             </div>
 
             <div className="displayrightdescription">
-                Crafted from premium breathable fabric, this shirt offers all-day comfort with a modern tailored fit.
-                Its versatile design pairs effortlessly with both casual and formal looks, making it perfect for any occasion.
-                Finished with fine stitching and durable quality, it’s a wardrobe essential that combines style and confidence.
-
+                {(() => {
+                    const name = product.name ? product.name.toLowerCase() : '';
+                    if (name.includes('jacket') || name.includes('coat') || name.includes('pullover')) {
+                        return `Stay warm and stylish with the ${product.name}. Designed with premium materials and a sleek exterior, it provides ultimate comfort while keeping your fashion game on point. A must-have outerwear piece for cooler days.`;
+                    }
+                    if (name.includes('dress') || name.includes('gown')) {
+                        return `Turn heads with the elegantly designed ${product.name}. Featuring a flattering silhouette and premium fabric, it offers a perfect blend of grace and comfort. Ideal for both daytime outings and special events.`;
+                    }
+                    if (name.includes('hoodie') || name.includes('sweatshirt')) {
+                        return `Experience unmatched coziness with the ${product.name}. Crafted with a plush interior and a relaxed fit, it's perfect for chilly evenings or casual weekend wear. Complete with durable stitching for long-lasting comfort.`;
+                    }
+                    if (name.includes('t-shirt') || name.includes('shirt') || name.includes('top') || name.includes('blouse')) {
+                        return `Upgrade your everyday look with the ${product.name}. Made with ultra-soft, breathable materials, it ensures maximum comfort whether you're lounging or heading out. The classic cut makes it a highly versatile addition to your closet.`;
+                    }
+                    if (name.includes('jeans') || name.includes('pants') || name.includes('trousers')) {
+                        return `Step out in confidence with the ${product.name}. Tailored for a perfect fit, these offer both durability and flexibility for all-day wear. The timeless design makes them incredibly easy to pair with any top in your wardrobe.`;
+                    }
+                    
+                    return `Discover the exceptional quality of the ${product.name}. Carefully crafted to meet modern fashion standards, it brings a fresh aesthetic to your collection. Designed for comfort, durability, and effortless style.`;
+                })()}
             </div>
             <div className="productdisplayrightsize">
                 <h1>Select Size</h1>
