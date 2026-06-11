@@ -9,8 +9,31 @@ function LoginSignUp(){
     })
 
     async function login(){
-        console.log("lg",formdata);
+        const response = await fetch("http://localhost:4000/login", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formdata),
+        });
+
+        const responseData = await response.json();
+
+       
+
+        if (responseData.success) {
+            localStorage.setItem("auth-token", responseData.token);
+            console.log("Response:", responseData);
+
+            // Redirect
+            window.location.href = "/";
+            alert(`Welcome ${formdata.username}`)
+        } else {
+            alert(responseData.message || "Signup failed");
+        }
     }
+    
 
 
 
@@ -21,8 +44,30 @@ function LoginSignUp(){
 
 
      async function signup(){
-        console.log("sg",formdata);
-        
+    
+        const response = await fetch("http://localhost:4000/signup", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formdata),
+        });
+
+        const responseData = await response.json();
+
+       
+
+        if (responseData.success) {
+            localStorage.setItem("auth-token", responseData.token);
+            console.log("Response:", responseData);
+
+            // Redirect
+            window.location.href = "/";
+            alert(`Welcome ${formdata.username}`)
+        } else {
+            alert(responseData.message || "Signup failed");
+        }
     }
 
     function changeHandler(e){
