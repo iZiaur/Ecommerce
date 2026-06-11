@@ -28,16 +28,20 @@ Built as a monorepo with three independent applications that communicate through
 
 ### 🛍️ Customer Storefront
 - Browse products by category — **Men**, **Women**, **Kids**
+- **Global Search Bar** — Instantly filter and find products by name or category
 - Dynamic **Popular in Women** and **New Collections** sections
-- Product detail pages with size selection and star ratings
+- Product detail pages with size selection and **Dynamic Context-Aware Descriptions**
 - Shopping cart with real-time quantity updates
 - **Cart persistence** — cart survives logout/login sessions
-- User authentication (Sign Up / Login / Logout)
+- User authentication (Sign Up / Login / Logout) with **Strict 5-Minute Session Timeouts**
 - Personalized greeting in navbar ("Hey {name}")
+- Beautiful **Flash Notifications (Toasts)** for cart actions and errors
 - Fully responsive design — mobile, tablet, desktop
 
 ### 🔐 Admin Dashboard
 - **Protected by authentication** — separate Admin collection in MongoDB
+- **Strict 2-Minute Session Timeouts** for enhanced administrative security
+- **Analytics Dashboard** — Track real-time total users and active products
 - Add new products with image upload (auto-uploaded to Cloudinary)
 - View all products in a sortable list
 - Remove products with one click
@@ -47,6 +51,7 @@ Built as a monorepo with three independent applications that communicate through
 - RESTful API built with Express.js
 - MongoDB Atlas for cloud database
 - JWT-based authentication with middleware protection
+- **Military-grade Password Security** using `bcrypt` salting and hashing
 - Cloudinary integration for serverless-compatible image uploads
 - CORS-enabled for cross-origin frontend access
 
